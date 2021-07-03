@@ -4,9 +4,14 @@
   "description": "A music sharing app for parties and car rides",
   "main": "index.js",
   "scripts": {
-    "start": "node server",
-    "start:dev": "nodemon server",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "npm run build:server && npm run build:client",
+    "build:client": "tsc client/index.ts -outDir public",
+    "build:server": "tsc server/index.ts -outDir private",
+    "start": "node private",
+    "start:dev": "nodemon private",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch:client": "npm run build:client -- --watch",
+    "watch:server": "npm run build:server -- --watch"
   },
   "keywords": [],
   "author": "Justin Mattos",
@@ -15,6 +20,7 @@
     "express": "^4.17.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.9"
+    "nodemon": "^2.0.9",
+    "typescript": "^4.3.5"
   }
 }
