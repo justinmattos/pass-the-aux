@@ -1,14 +1,11 @@
 import { combineReducers, createStore } from 'redux';
 
-import authReducer, { setToken, setUser } from './auth/auth';
+import auth, { setAuth } from './auth';
 
-const reducer = combineReducers({ authReducer });
+const reducer = combineReducers({ auth });
 
 export default createStore(reducer);
 
 export const actionCreators = {
-  setAuth: {
-    setToken,
-    setUser,
-  },
+  setAuth,
 };
