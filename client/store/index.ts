@@ -1,11 +1,16 @@
 import { combineReducers, createStore } from 'redux';
 
 import auth, { setAuth } from './auth';
+const { setToken, setUser } = setAuth;
 
-const reducer = combineReducers({ auth });
+import socket, { setSocket } from './socket';
+
+const reducer = combineReducers({ auth, socket });
 
 export default createStore(reducer);
 
 export const actionCreators = {
-  setAuth,
+  setSocket,
+  setToken,
+  setUser,
 };

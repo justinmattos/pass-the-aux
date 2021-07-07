@@ -1,4 +1,3 @@
-import { combineReducers } from 'redux';
 import { Action } from '../types';
 
 const SET_USER = 'SET_USER';
