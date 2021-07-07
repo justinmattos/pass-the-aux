@@ -1,12 +1,12 @@
-const express = require('express');
+import express from 'express';
 const path = require('path');
 
 const app = express();
 
-app.use('/public', express.static(path.join(__dirname, '../public')))
+app.use('/public', express.static(path.join(__dirname, '../public')));
 
 app.get('/', (req, res, next) => {
-  res.sendFile(path.join(__dirname, '../public/index.html'))
-})
+  res.sendFile(path.join(__dirname, '../public/index.html'));
+});
 
 export default app;
