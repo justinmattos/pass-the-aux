@@ -1,12 +1,12 @@
 {
-  "name": "Pass-The-Aux",
+  "name": "pass-the-aux",
   "version": "1.0.0",
   "description": "A music sharing app for parties and car rides",
   "main": "index.js",
   "scripts": {
     "build": "npm run build:server && npm run build:client",
-    "build:client": "tsc client/index.ts -outDir public",
-    "build:server": "tsc server/index.ts -outDir private",
+    "build:client": "webpack --mode=development",
+    "build:server": "tsc -p server/tsconfig.json",
     "start": "node private",
     "start:dev": "nodemon private",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -20,7 +20,16 @@
     "express": "^4.17.1"
   },
   "devDependencies": {
+    "@types/react": "^17.0.13",
+    "@types/react-dom": "^17.0.8",
+    "axios": "^0.21.1",
     "nodemon": "^2.0.9",
-    "typescript": "^4.3.5"
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "redux": "^4.1.0",
+    "ts-loader": "^9.2.3",
+    "typescript": "^4.3.5",
+    "webpack": "^5.42.0",
+    "webpack-cli": "^4.7.2"
   }
 }

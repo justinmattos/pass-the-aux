@@ -1,4 +1,14 @@
 {
   "compilerOptions": {
-  }
+    "outDir": "public",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "module": "es6",
+    "target": "es5",
+    "jsx": "react",
+    "allowJs": true,
+    "moduleResolution": "Node",
+    "removeComments": true
+  },
+  "files": ["client/index.ts"]
 }

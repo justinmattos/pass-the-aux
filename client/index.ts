@@ -1,3 +1,8 @@
-const hello = 'Hello World!'
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
-let goodbye = 'Goodbye World!'
+import App from './Components/App';
+
+const app = document.querySelector('#app');
+
+ReactDOM.render(React.createElement(App), app);

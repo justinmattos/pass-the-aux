@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "outDir": "../private",
+    "removeComments": true
+  },
+  "files": ["index.ts"],
+  "include": ["server/**/*"]
+}
