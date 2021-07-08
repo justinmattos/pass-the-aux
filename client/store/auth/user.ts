@@ -20,7 +20,7 @@ const initialState: User = {
   lastName: '',
 };
 
-export default (state: User, { user, type }: UserAction) => {
+export default (state = initialState, { user, type }: UserAction) => {
   if (type === SET_USER) return user;
   return state;
 };

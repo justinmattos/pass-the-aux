@@ -11,7 +11,9 @@ export const setToken = (token: string): TokenAction => ({
   type: SET_TOKEN,
 });
 
-export default (state = '', { token, type }: TokenAction) => {
+const initialState: string = '';
+
+export default (state = initialState, { token, type }: TokenAction) => {
   if (type === SET_TOKEN) return token;
   return state;
 };
