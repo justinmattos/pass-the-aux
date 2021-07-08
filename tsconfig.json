@@ -10,5 +10,5 @@
     "moduleResolution": "Node",
     "removeComments": true
   },
-  "files": ["client/index.ts"]
+  "files": ["client/index.tsx"]
 }

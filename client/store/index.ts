@@ -1,18 +1,17 @@
-import { combineReducers, createStore } from 'redux';
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import auth, { setToken, setUser } from './slices/auth';
+import socket, { setSocket } from './slices/socket';
+import theme, { setLight, setDark } from './slices/theme';
 
-import auth, { setAuth } from './auth';
-const { setToken, setUser } = setAuth;
+const store = configureStore({
+  reducer: {
+    auth,
+    socket,
+    theme,
+  },
+});
 
-import socket, { setSocket } from './socket';
-import theme, { setTheme } from './theme';
-
-const reducer = combineReducers({ auth, socket, theme });
-
-export default createStore(reducer);
-
-export const actionCreators = {
-  setSocket,
-  setToken,
-  setTheme,
-  setUser,
-};
+export default store;
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+export { setDark, setLight, setSocket, setToken, setUser };

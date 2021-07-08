@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-  entry: './client/index.ts',
+  entry: './client/index.tsx',
   output: {
     path: path.join(__dirname, 'public'),
     filename: 'index.js',
@@ -15,7 +15,7 @@ module.exports = {
       {
         exclude: /node_modules|server/,
         test: /\.tsx?$/,
-        use: 'ts-loader'
+        use: 'ts-loader',
       },
     ],
   },

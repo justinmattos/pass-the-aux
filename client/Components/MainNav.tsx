@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { useSelector } from 'react-redux';
+import { useTypedSelector } from '../hooks';
 import { MainNavDiv } from '../styles';
 
 const MainNav = () => {
-  const theme = useSelector((state) => state.theme);
+  const theme = useTypedSelector((state) => state.theme.value);
   return (
     <MainNavDiv>
       <img src={`/public/menu-${theme}.svg`} width="15em" />
