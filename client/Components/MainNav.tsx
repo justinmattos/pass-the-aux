@@ -1,14 +1,27 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTypedSelector } from '../hooks';
-import { MainNavDiv } from '../styles';
+import { MainNavDiv, TopNavDiv, SideNavDiv } from '../styles';
 
 const MainNav = () => {
-  const theme = useTypedSelector((state) => state.theme.value);
+  const { styleOpt } = useTypedSelector((state) => ({
+    styleOpt: state.styleOpt.value,
+  }));
+  const [loading, setLoading] = useState(true);
+  const [expanded, setExpanded] = useState(false);
+
+  useEffect(() => {}, [loading]);
+
   return (
     <MainNavDiv>
-      <img src={`/public/menu-${theme}.svg`} width="15em" />
-      <h1>Pass the Aux</h1>
-      <h2>Music sharing made easy</h2>
+      {expanded ? (
+        <SideNavDiv></SideNavDiv>
+      ) : (
+        <TopNavDiv>
+          <img src={`/public/menu-${styleOpt}.svg`} width="15rem" />
+          <div>Pass the Aux</div>
+          <div>Login</div>
+        </TopNavDiv>
+      )}
     </MainNavDiv>
   );
 };

@@ -1,13 +1,13 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import auth, { setToken, setUser } from './slices/auth';
 import socket, { setSocket } from './slices/socket';
-import theme, { setLight, setDark } from './slices/theme';
+import styleOpt, { setLight, setDark } from './slices/styleOpt';
 
 const store = configureStore({
   reducer: {
     auth,
     socket,
-    theme,
+    styleOpt,
   },
 });
 

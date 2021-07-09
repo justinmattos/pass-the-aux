@@ -14,8 +14,8 @@ export const socketSlice = createSlice({
   name: 'socket',
   initialState,
   reducers: {
-    setSocket: ({ value }, action: PayloadAction<Socket | null>) => {
-      value = castDraft(action.payload);
+    setSocket: (state, action: PayloadAction<Socket | null>) => {
+      state.value = castDraft(action.payload);
     },
   },
 });

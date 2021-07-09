@@ -1,38 +1,51 @@
-import * as React from 'react';
+import React from 'react';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 const { useState, useEffect } = React;
 
 import { setDark, setLight } from '../store';
 import MainNav from './MainNav';
-import GlobalStyle from '../styles';
-import { useTypedSelector } from '../hooks';
+import GlobalStyle, { defaultTheme } from '../styles';
+import { useTypedDispatch, useTypedSelector } from '../hooks';
+import { ThemeProvider } from 'styled-components';
 
 const App = () => {
-  const theme = useTypedSelector((state) => state.theme.value);
+  // redux
+  const { styleOpt } = useTypedSelector((state) => ({
+    styleOpt: state.styleOpt.value,
+  }));
+  const dispatch = useTypedDispatch();
+
+  // local state
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (loading) {
-      const localTheme = window.localStorage.getItem('theme');
-      if (localTheme && localTheme !== theme) {
-        if (localTheme === 'dark') setDark();
-        if (localTheme === 'light') setLight();
+      const storedStyle = window.localStorage.getItem('styleOpt');
+      if (
+        (storedStyle === 'dark' || storedStyle === 'light') &&
+        storedStyle !== styleOpt
+      ) {
+        if (storedStyle === 'dark') {
+          dispatch(setDark());
+        }
+        if (storedStyle === 'light') dispatch(setLight());
       } else {
-        window.localStorage.setItem('theme', theme);
+        window.localStorage.setItem('styleOpt', styleOpt);
       }
+      setLoading(false);
     }
   }, [loading]);
 
   return (
-    <>
-      <GlobalStyle theme={theme} />
+    <ThemeProvider theme={{ ...defaultTheme, styleOpt: styleOpt }}>
+      <GlobalStyle />
       <MainNav />
       <Router>
         <Switch>
           <Route path="login" component={() => <div>Login</div>} />
         </Switch>
       </Router>
-    </>
+    </ThemeProvider>
   );
 };
 
