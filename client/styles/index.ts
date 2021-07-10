@@ -1,13 +1,20 @@
 import styled, { createGlobalStyle, DefaultTheme } from 'styled-components';
 import { motion } from 'framer-motion';
-import { MainNavDiv, TopNavDiv, SideNavDiv, MenuOption } from './MainNavStyles';
-export { MainNavDiv, TopNavDiv, SideNavDiv, MenuOption };
+import {
+  MainNavDiv,
+  TopNavDiv,
+  TopMenuOption,
+  SideNavDiv,
+  SideMenuOption,
+} from './MainNavStyles';
+export { MainNavDiv, TopNavDiv, TopMenuOption, SideNavDiv, SideMenuOption };
 
 interface MainTheme {
   back: string;
   text: string;
   navBack: string;
   navText: string;
+  navSelect: string;
 }
 
 declare module 'styled-components' {
@@ -30,12 +37,14 @@ export const defaultTheme: DefaultTheme = {
     text: '#e7dfdd',
     navBack: '#4717f6',
     navText: '#e7dfdd',
+    navSelect: '#a239ca',
   },
   light: {
     back: '#e7dfdd',
     text: '#0e0b16',
     navBack: '#a239ca',
     navText: '#F7FFDB',
+    navSelect: '#4717f6',
   },
   button: {
     primary: '#4717f6',
@@ -74,6 +83,27 @@ export const Button = styled(motion.button)<{
   border: 0;
   border-radius: 1rem;
   cursor: pointer;
+`;
+
+export const ToggleContainer = styled.div<{ isOn: boolean }>`
+  width: 3.2rem;
+  height: 2rem;
+  background: ${({ theme }) => theme[theme.styleOpt].text};
+  display: flex;
+  border-radius: 1rem;
+  justify-content: ${({ isOn }) => {
+    console.log(isOn);
+    return isOn ? 'flex-end' : 'flex-start';
+  }};
+  cursor: pointer;
+`;
+
+export const ToggleHandle = styled(motion.div)`
+  width: 1.6rem;
+  height: 1.6rem;
+  background: ${({ theme }) => theme[theme.styleOpt].back};
+  border-radius: 0.8rem;
+  margin: 0.2rem;
 `;
 
 export default GlobalStyle;

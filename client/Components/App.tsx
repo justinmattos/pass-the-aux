@@ -2,10 +2,9 @@ import React from 'react';
 const { useState, useEffect } = React;
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
-import axios from 'axios';
 
-import { setDark, setLight, setUser } from '../store';
-import MainNav from './MainNav';
+import { setDark, setLight } from '../store';
+import MainNav from './Navigation/MainNav';
 import GlobalStyle, { defaultTheme } from '../styles';
 import { useTypedDispatch, useTypedSelector } from '../hooks';
 

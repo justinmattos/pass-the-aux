@@ -5,7 +5,6 @@ export const MainNavDiv = styled.div`
   > div {
     background: ${({ theme }) => theme[theme.styleOpt].navBack};
     color: ${({ theme }) => theme[theme.styleOpt].navText};
-    padding: 1rem;
   }
   width: 100vw;
 `;
@@ -13,17 +12,31 @@ export const MainNavDiv = styled.div`
 export const TopNavDiv = styled.div`
   display: grid;
   grid-template-columns: calc(100% / 3) calc(100% / 3) calc(100% / 3);
+  padding: 1rem;
+`;
+
+export const TopMenuOption = styled(motion.div)<{ left?: boolean }>`
+  text-align: ${(props) => (props.left ? 'left' : 'right')};
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 export const SideNavDiv = styled(motion.div)`
   position: absolute;
   top: 0;
-  height: calc(100vh - 2rem);
-  width: calc(100vw - 5rem);
+  height: 100vh;
+  width: calc(100vw - 3rem);
   display: flex;
   flex-flow: column nowrap;
+  justify-content: space-between;
 `;
 
-export const MenuOption = styled(motion.div)<{ left?: boolean }>`
-  text-align: ${(props) => (props.left ? 'left' : 'right')};
+export const SideMenuOption = styled(motion.div)<{ selected?: boolean }>`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: ${({ selected, theme }) =>
+    selected ? theme[theme.styleOpt].navSelect : 'inherit'};
+  padding: 1rem;
 `;
