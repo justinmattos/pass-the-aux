@@ -13,6 +13,8 @@ const router = Router();
 const stateKey = 'spotify_auth_state';
 
 // This router is mounted at /login
+
+// GET /login
 router.get('/', (req: Request, res: Response, next: NextFunction) => {
   const state = generateRandomString(16);
   res.cookie(stateKey, state);
@@ -29,9 +31,8 @@ router.get('/', (req: Request, res: Response, next: NextFunction) => {
   res.redirect(url);
 });
 
+// GET /callback - for Spotify to send the redirect
 router.get('/callback', (req: Request, res: Response, next: NextFunction) => {
-  console.log(req.query);
-  console.log(req.cookies);
   const { code, error, state } = req.query;
   const storedState = req.cookies ? req.cookies[stateKey] : null;
   if (state !== storedState || state === null) {
@@ -41,7 +42,6 @@ router.get('/callback', (req: Request, res: Response, next: NextFunction) => {
     if (error) {
       next(errorCreator(error.toString(), 409));
     } else {
-      let refreshToken;
       axios
         .post('https://accounts.spotify.com/api/token', null, {
           headers: { Authorization: 'Basic ' + buffer },
@@ -51,18 +51,34 @@ router.get('/callback', (req: Request, res: Response, next: NextFunction) => {
             redirect_uri,
           },
         })
-        .then(({ data: { access_token, refresh_token } }) => {
-          refreshToken = refresh_token;
-          return axios.get('https://api.spotify.com/v1/me', {
-            headers: { Authorization: 'Bearer ' + access_token },
-          });
-        })
-        .then(({ data }) => {
-          res.send({ user: data, refreshToken });
+        .then(({ data: { refresh_token } }) => {
+          res.redirect(`/#/?token=${refresh_token}`);
         })
         .catch((error) => next(errorCreator(error.toString(), 409)));
     }
   }
+});
+
+// POST /refresh
+router.post('/refresh', (req: Request, res: Response, next: NextFunction) => {
+  const { refresh_token } = req.body;
+  axios
+    .post('https://accounts.spotify.com/api/token', null, {
+      headers: { Authorization: 'Basic ' + buffer },
+      params: {
+        grant_type: 'refresh_token',
+        refresh_token,
+      },
+    })
+    .then(({ data: { access_token } }) => {
+      return axios.get('https://api.spotify.com/v1/me', {
+        headers: { Authorization: 'Bearer ' + access_token },
+      });
+    })
+    .then(({ data }) => {
+      res.send({ user: data });
+    })
+    .catch((error) => next(errorCreator(error.toString(), 409)));
 });
 
 export default router;

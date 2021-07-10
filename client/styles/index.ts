@@ -1,7 +1,7 @@
 import styled, { createGlobalStyle, DefaultTheme } from 'styled-components';
 import { motion } from 'framer-motion';
-import { MainNavDiv, TopNavDiv, SideNavDiv } from './MainNavStyles';
-export { MainNavDiv, TopNavDiv, SideNavDiv };
+import { MainNavDiv, TopNavDiv, SideNavDiv, AuthOption } from './MainNavStyles';
+export { MainNavDiv, TopNavDiv, SideNavDiv, AuthOption };
 
 interface MainTheme {
   back: string;

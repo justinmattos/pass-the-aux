@@ -3,13 +3,13 @@ export interface ServerError extends Error {
 }
 
 export class ServerError extends Error {
-  constructor(message: string, status: number) {
-    super(message);
+  constructor(error: Error | string, status: number) {
+    super(error instanceof Error ? error.message : error);
     this.status = status;
   }
 }
 
-export default (message: string, status: number): ServerError => {
+export default (message: Error | string, status: number): ServerError => {
   const error = new ServerError(message, status);
   return error;
 };

@@ -1,12 +1,13 @@
 import React from 'react';
-import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 const { useState, useEffect } = React;
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+import { ThemeProvider } from 'styled-components';
+import axios from 'axios';
 
-import { setDark, setLight } from '../store';
+import { setDark, setLight, setUser } from '../store';
 import MainNav from './MainNav';
 import GlobalStyle, { defaultTheme } from '../styles';
 import { useTypedDispatch, useTypedSelector } from '../hooks';
-import { ThemeProvider } from 'styled-components';
 
 const App = () => {
   // redux
@@ -20,6 +21,7 @@ const App = () => {
 
   useEffect(() => {
     if (loading) {
+      // console.log(params);
       const storedStyle = window.localStorage.getItem('styleOpt');
       if (
         (storedStyle === 'dark' || storedStyle === 'light') &&
@@ -39,8 +41,8 @@ const App = () => {
   return (
     <ThemeProvider theme={{ ...defaultTheme, styleOpt: styleOpt }}>
       <GlobalStyle />
-      <MainNav />
       <Router>
+        <MainNav />
         <Switch>
           <Route path="login" component={() => <div>Login</div>} />
         </Switch>

@@ -7,11 +7,15 @@ export const MainNavDiv = styled.div`
 `;
 
 export const TopNavDiv = styled.div`
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: calc(100% / 3) calc(100% / 3) calc(100% / 3);
 `;
 
 export const SideNavDiv = styled.div`
   display: flex;
   flex-flow: column nowrap;
+`;
+
+export const AuthOption = styled.div`
+  text-align: right;
 `;

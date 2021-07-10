@@ -3,7 +3,6 @@ import path from 'path';
 import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
 import loginRouter from './login';
-import { ServerError } from './utils/errorCreator';
 require('dotenv').config();
 
 const app = express();
