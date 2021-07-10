@@ -1,7 +1,7 @@
 import styled, { createGlobalStyle, DefaultTheme } from 'styled-components';
 import { motion } from 'framer-motion';
-import { MainNavDiv, TopNavDiv, SideNavDiv, AuthOption } from './MainNavStyles';
-export { MainNavDiv, TopNavDiv, SideNavDiv, AuthOption };
+import { MainNavDiv, TopNavDiv, SideNavDiv, MenuOption } from './MainNavStyles';
+export { MainNavDiv, TopNavDiv, SideNavDiv, MenuOption };
 
 interface MainTheme {
   back: string;
@@ -28,14 +28,14 @@ export const defaultTheme: DefaultTheme = {
   dark: {
     back: '#0e0b16',
     text: '#e7dfdd',
-    navBack: '#e7dfdd',
-    navText: '#0e0b16',
+    navBack: '#4717f6',
+    navText: '#e7dfdd',
   },
   light: {
     back: '#e7dfdd',
     text: '#0e0b16',
-    navBack: '#0e0b16',
-    navText: '#e7dfdd',
+    navBack: '#a239ca',
+    navText: '#F7FFDB',
   },
   button: {
     primary: '#4717f6',

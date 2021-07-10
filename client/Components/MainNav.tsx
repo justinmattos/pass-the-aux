@@ -1,10 +1,10 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useHistory, useLocation, useRouteMatch } from 'react-router-dom';
 import { useTypedDispatch, useTypedSelector } from '../hooks';
 import { setUser } from '../store';
 import { setToken } from '../store/slices/auth';
-import { MainNavDiv, TopNavDiv, SideNavDiv, AuthOption } from '../styles';
+import { MainNavDiv, TopNavDiv, SideNavDiv, MenuOption } from '../styles';
 
 const MainNav = () => {
   // redux store
@@ -22,6 +22,8 @@ const MainNav = () => {
   // local state
   const [loading, setLoading] = useState(true);
   const [expanded, setExpanded] = useState(false);
+  const [slideoutX, setSlideoutX] = useState(3000);
+  const slideout = useRef(null);
 
   const getUserWithToken = (token: string): Promise<string> => {
     return new Promise((res, rej) => {
@@ -58,42 +60,62 @@ const MainNav = () => {
     }
   }, [loading]);
 
-  const logIn = () => {
+  const logIn = (): void => {
     // something to indicate to the user that they will login with spotify, and that if they've previously authorized the app, then it will be instant.
     window.location.href = '/login';
   };
 
-  const logOut = () => {
+  const logOut = (): void => {
     window.localStorage.removeItem('token');
     dispatch(
       setUser({ user: { display_name: '', email: '', id: '', images: [] } })
     );
   };
 
+  useLayoutEffect(() => {
+    if (!slideout.current) return;
+    if (slideoutX !== slideout.current.offsetWidth)
+      setSlideoutX(slideout.current.offsetWidth);
+  });
+
   return (
     <MainNavDiv>
       <TopNavDiv>
-        <img
-          src={`/public/menu-${styleOpt}.svg`}
-          width="15rem"
-          onClick={() => setExpanded(true)}
-        />
+        <MenuOption left>
+          <img
+            src={`/public/menu-${styleOpt}.svg`}
+            width="15rem"
+            onClick={() => setExpanded(true)}
+          />
+        </MenuOption>
         <div style={{ textAlign: 'center' }}>Pass the Aux</div>
         {expanded ? (
-          <div style={{ textAlign: 'right' }}>
+          <MenuOption>
             <img
               src={`/public/exit-${styleOpt}.svg`}
               width="15rem"
               onClick={() => setExpanded(false)}
             />
-          </div>
+          </MenuOption>
         ) : user.id ? (
-          <AuthOption onClick={logOut}>Logout</AuthOption>
+          <MenuOption onClick={logOut}>Logout</MenuOption>
         ) : (
-          <AuthOption onClick={logIn}>Login</AuthOption>
+          <MenuOption onClick={logIn}>Login</MenuOption>
         )}
       </TopNavDiv>
-      {expanded ? <SideNavDiv></SideNavDiv> : ''}
+      <SideNavDiv
+        ref={slideout}
+        initial="hidden"
+        animate={expanded ? 'visible' : 'hidden'}
+        variants={{
+          visible: { x: 0 },
+          hidden: { x: -slideoutX },
+        }}
+        transition={{
+          ease: 'easeIn',
+          duration: 1,
+        }}
+      ></SideNavDiv>
     </MainNavDiv>
   );
 };
