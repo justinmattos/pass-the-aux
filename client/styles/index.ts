@@ -92,7 +92,6 @@ export const ToggleContainer = styled.div<{ isOn: boolean }>`
   display: flex;
   border-radius: 1rem;
   justify-content: ${({ isOn }) => {
-    console.log(isOn);
     return isOn ? 'flex-end' : 'flex-start';
   }};
   cursor: pointer;

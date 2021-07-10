@@ -20,7 +20,6 @@ const App = () => {
 
   useEffect(() => {
     if (loading) {
-      // console.log(params);
       const storedStyle = window.localStorage.getItem('styleOpt');
       if (
         (storedStyle === 'dark' || storedStyle === 'light') &&

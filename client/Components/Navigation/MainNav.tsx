@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import TopNav from './TopNav';
 import SideNav from './SideNav';
-import { useTypedDispatch, useTypedSelector } from '../../hooks';
+import { useTypedDispatch } from '../../hooks';
 import { setToken, setUser } from '../../store';
 import { MainNavDiv } from '../../styles';
 
