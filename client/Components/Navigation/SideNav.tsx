@@ -1,8 +1,8 @@
 import React, { useState, useRef, useLayoutEffect } from 'react';
-import { SideNavDiv, SideMenuOption } from '../../styles';
+import { SideNavDiv, SideNavComplement, SideMenuOption } from '../../styles';
 import { useTypedDispatch, useTypedSelector } from '../../hooks';
-import { setDark, setLight } from '../../store';
 import { Toggle } from '../Utils';
+import { collapse } from '../../store';
 
 const SideNav = () => {
   // redux store
@@ -23,36 +23,43 @@ const SideNav = () => {
   });
 
   return (
-    <SideNavDiv
-      ref={slideout}
-      initial="hidden"
-      animate={expanded ? 'visible' : 'hidden'}
-      variants={{
-        visible: { x: 0 },
-        hidden: { x: -slideoutX },
-      }}
-      transition={{
-        ease: 'easeIn',
-        duration: 0.6,
-      }}
-    >
-      <div>
-        {Array(5)
-          .fill('')
-          .map((_, idx) => idx + 1)
-          .map((val) => {
-            return (
-              <SideMenuOption key={val} selected={val === 3}>
-                {val}
-              </SideMenuOption>
-            );
-          })}
-      </div>
-      <SideMenuOption>
-        <div>Toggle Dark Mode</div>
-        <Toggle />
-      </SideMenuOption>
-    </SideNavDiv>
+    <>
+      <SideNavDiv
+        ref={slideout}
+        initial="hidden"
+        animate={expanded ? 'visible' : 'hidden'}
+        variants={{
+          visible: { x: 0 },
+          hidden: { x: -slideoutX },
+        }}
+        transition={{
+          ease: 'easeIn',
+          duration: 0.6,
+        }}
+      >
+        <div>
+          {Array(5)
+            .fill('')
+            .map((_, idx) => idx + 1)
+            .map((val) => {
+              return (
+                <SideMenuOption key={val} selected={val === 3}>
+                  {val}
+                </SideMenuOption>
+              );
+            })}
+        </div>
+        <SideMenuOption>
+          <div>Toggle Dark Mode</div>
+          <Toggle />
+        </SideMenuOption>
+      </SideNavDiv>
+      {expanded ? (
+        <SideNavComplement onClick={() => dispatch(collapse())} />
+      ) : (
+        ''
+      )}
+    </>
   );
 };
 

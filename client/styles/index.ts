@@ -5,9 +5,17 @@ import {
   TopNavDiv,
   TopMenuOption,
   SideNavDiv,
+  SideNavComplement,
   SideMenuOption,
 } from './MainNavStyles';
-export { MainNavDiv, TopNavDiv, TopMenuOption, SideNavDiv, SideMenuOption };
+export {
+  MainNavDiv,
+  TopNavDiv,
+  TopMenuOption,
+  SideNavDiv,
+  SideNavComplement,
+  SideMenuOption,
+};
 
 interface MainTheme {
   back: string;

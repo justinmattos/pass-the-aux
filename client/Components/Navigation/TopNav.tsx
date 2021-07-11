@@ -43,12 +43,7 @@ const TopNav = () => {
       <div style={{ textAlign: 'center' }}>Pass the Aux</div>
       {expanded ? (
         <TopMenuOption>
-          <XIcon
-            color={theme[styleOpt].navText}
-            onClick={() => dispatch(collapse())}
-            width="1rem"
-            height="1rem"
-          />
+          <XIcon color={theme[styleOpt].navText} width="1rem" height="1rem" />
         </TopMenuOption>
       ) : user.id ? (
         <TopMenuOption onClick={logOut}>Logout</TopMenuOption>

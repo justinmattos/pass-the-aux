@@ -36,6 +36,15 @@ export const SideNavDiv = styled(motion.div)`
   justify-content: space-between;
 `;
 
+export const SideNavComplement = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 3rem;
+  opacity: 0;
+`;
+
 export const SideMenuOption = styled(motion.div)<{ selected?: boolean }>`
   display: flex;
   justify-content: space-between;
