@@ -2,7 +2,7 @@ import React, { useState, useRef, useLayoutEffect } from 'react';
 import { SideNavDiv, SideNavComplement, SideMenuOption } from '../../styles';
 import { useTypedDispatch, useTypedSelector } from '../../hooks';
 import { Toggle } from '../Utils';
-import { collapse } from '../../store';
+import { collapse, setDark, setLight } from '../../store';
 
 const SideNav = () => {
   // redux store
@@ -15,6 +15,19 @@ const SideNav = () => {
   // local state
   const [slideoutX, setSlideoutX] = useState(3000);
   const slideout = useRef(null);
+
+  const toggleSwitch = (): void => {
+    let newStyleOpt;
+    if (styleOpt === 'dark') {
+      newStyleOpt = 'light';
+      dispatch(setLight());
+    }
+    if (styleOpt === 'light') {
+      newStyleOpt = 'dark';
+      dispatch(setDark());
+    }
+    window.localStorage.setItem('styleOpt', newStyleOpt);
+  };
 
   useLayoutEffect(() => {
     if (!slideout.current) return;
@@ -51,7 +64,7 @@ const SideNav = () => {
         </div>
         <SideMenuOption>
           <div>Toggle Dark Mode</div>
-          <Toggle />
+          <Toggle toggleControl={toggleSwitch} />
         </SideMenuOption>
       </SideNavDiv>
       {expanded ? (
