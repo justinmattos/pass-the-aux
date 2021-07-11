@@ -15,8 +15,12 @@ export const TopNavDiv = styled.div`
   padding: 1rem;
 `;
 
-export const TopMenuOption = styled(motion.div)<{ left?: boolean }>`
+export const TopMenuOption = styled(motion.div)<{
+  left?: boolean;
+  width?: string;
+}>`
   text-align: ${(props) => (props.left ? 'left' : 'right')};
+  width: ${(props) => (props.width ? props.width : '100%')}
   :hover {
     cursor: pointer;
   }
