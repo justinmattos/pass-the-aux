@@ -3,8 +3,9 @@ const { useState, useEffect } = React;
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
+import { MainNav } from './Navigation';
+import { Player } from './Player';
 import { setDark, setLight } from '../store';
-import MainNav from './Navigation/MainNav';
 import GlobalStyle, { defaultTheme } from '../styles';
 import { useTypedDispatch, useTypedSelector } from '../hooks';
 
@@ -42,7 +43,7 @@ const App = () => {
       <Router>
         <MainNav />
         <Switch>
-          <Route path="login" component={() => <div>Login</div>} />
+          <Route path="/player" component={Player} />
         </Switch>
       </Router>
     </ThemeProvider>
