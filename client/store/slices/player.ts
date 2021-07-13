@@ -12,14 +12,14 @@ export interface DisallowsObject {
   transferring_playback?: boolean;
 }
 
-export interface ContextObject {
-  external_urls: {
-    spotify: string;
-  };
-  href: string;
-  type: 'album' | 'playlist' | 'show' | 'artist';
-  uri: string;
-}
+// export interface ContextObject {
+//   external_urls: {
+//     spotify: string;
+//   };
+//   href: string;
+//   type: 'album' | 'playlist' | 'show' | 'artist';
+//   uri: string;
+// }
 
 export interface DeviceObject {
   id: 'string';
@@ -60,30 +60,78 @@ export interface EpisodeObject {
   };
 }
 
-export interface PlayerState {
+type CurrentlyPlayingType = 'track' | 'episode' | 'ad' | 'unknown';
+
+type ItemMap = {
+  track: TrackObject;
+  episode: EpisodeObject;
+  ad: null;
+  unknown: null;
+};
+
+export interface PlayerState<T extends CurrentlyPlayingType> {
   actions: DisallowsObject;
-  currently_playing_type: 'track' | 'episode' | 'ad' | 'unknown';
+  currently_playing_type: T;
   device: DeviceObject;
-  is_playing: true;
-  item: TrackObject | EpisodeObject;
+  is_playing: boolean;
+  item: T extends 'track'
+    ? TrackObject
+    : T extends 'episode'
+    ? EpisodeObject
+    : null;
   progress_ms: number;
   repeat_state: string;
   shuffle_state: string;
   timestamp: string;
 }
 
-const initialState: PlayerState = null;
+const initialState: PlayerState<CurrentlyPlayingType> = {
+  actions: null,
+  currently_playing_type: 'unknown',
+  device: null,
+  is_playing: false,
+  item: null,
+  progress_ms: 0,
+  repeat_state: null,
+  shuffle_state: null,
+  timestamp: null,
+};
 
 export const playerSlice = createSlice({
   name: 'player',
   initialState,
   reducers: {
-    setPlayer: (state, action: PayloadAction<PlayerState>) => {
-      state = action.payload;
+    setPlayerWithTrack: (
+      state,
+      action: PayloadAction<{
+        player: PlayerState<'track'>;
+      }>
+    ) => {
+      state = action.payload.player;
+    },
+    setPlayerWithEpisode: (
+      state,
+      action: PayloadAction<{
+        player: PlayerState<'episode'>;
+      }>
+    ) => {
+      state = action.payload.player;
+    },
+    setPlayerWithout: (
+      state: PlayerState<CurrentlyPlayingType>,
+      action: PayloadAction<{
+        player: PlayerState<'ad' | 'unknown'>;
+      }>
+    ) => {
+      state = action.payload.player;
     },
   },
 });
 
-export const { setPlayer } = playerSlice.actions;
+export const {
+  setPlayerWithEpisode,
+  setPlayerWithTrack,
+  setPlayerWithout,
+} = playerSlice.actions;
 
 export default playerSlice.reducer;

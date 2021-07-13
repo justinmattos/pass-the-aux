@@ -1,7 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import auth, { setToken, setUser } from './slices/auth';
 import menu, { expand, collapse } from './slices/menu';
-import player, { setPlayer } from './slices/player';
+import player, {
+  setPlayerWithEpisode,
+  setPlayerWithTrack,
+  setPlayerWithout,
+} from './slices/player';
 import socket, { setSocket } from './slices/socket';
 import styleOpt, { setLight, setDark } from './slices/styleOpt';
 
@@ -23,7 +27,9 @@ export {
   collapse,
   setDark,
   setLight,
-  setPlayer,
+  setPlayerWithEpisode,
+  setPlayerWithTrack,
+  setPlayerWithout,
   setSocket,
   setToken,
   setUser,

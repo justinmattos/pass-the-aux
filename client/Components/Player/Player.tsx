@@ -1,7 +1,14 @@
 import axios from 'axios';
 import React, { useEffect } from 'react';
 import { useTypedDispatch, useTypedSelector } from '../../hooks';
-import { setPlayer } from '../../store';
+import {
+  setPlayerWithEpisode,
+  setPlayerWithTrack,
+  setPlayerWithout,
+} from '../../store';
+import { PlayerState } from '../../store/slices/player';
+
+// For some reason, dispatching to the store is just not working here and I may need to vastly simplify the player object, filtering information at the API router level and only sending the essentials to the client.
 
 const Player = () => {
   const { player, styleOpt, token } = useTypedSelector((state) => ({
@@ -14,14 +21,46 @@ const Player = () => {
   const refreshPlayer = () => {
     axios
       .get('/api/player', { headers: { authorization: token } })
-      .then(({ data: { player } }) => {
-        console.log(player);
-        dispatch(setPlayer(player));
+      .then(({ data: { player: fetchedPlayer } }) => {
+        const {
+          actions,
+          currently_playing_type,
+          device,
+          is_playing,
+          item,
+          progress_ms,
+          repeat_state,
+          shuffle_state,
+          timestamp,
+        } = fetchedPlayer;
+        const playerToDispatch: PlayerState<typeof currently_playing_type> = {
+          actions,
+          currently_playing_type,
+          device,
+          is_playing,
+          item,
+          progress_ms,
+          repeat_state,
+          shuffle_state,
+          timestamp,
+        };
+        switch (currently_playing_type) {
+          case 'track':
+            dispatch(setPlayerWithTrack({ player: playerToDispatch }));
+            break;
+          case 'episode':
+            dispatch(setPlayerWithEpisode({ player: playerToDispatch }));
+            break;
+          case 'ad' || 'unknown':
+            dispatch(setPlayerWithout({ player: playerToDispatch }));
+            break;
+        }
         setTimeout(
           refreshPlayer,
-          player.item.duration_ms - player.progress_ms + 100
+          fetchedPlayer.item?.duration_ms - fetchedPlayer.progress_ms + 100
         );
-      });
+      })
+      .catch((err) => console.error(err));
   };
 
   useEffect(() => {
