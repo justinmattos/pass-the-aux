@@ -54,6 +54,8 @@
   },
   "jest": {
     "verbose": true,
-    "testMatch": ["<rootDir>/test/**/*.js"]
+    "testMatch": [
+      "<rootDir>/test/**/*.js"
+    ]
   }
 }
