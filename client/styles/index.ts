@@ -8,7 +8,9 @@ import {
   SideNavComplement,
   SideMenuOption,
 } from './MainNavStyles';
+import { ControllerDiv } from './PlayerStyles';
 export {
+  ControllerDiv,
   MainNavDiv,
   TopNavDiv,
   TopMenuOption,

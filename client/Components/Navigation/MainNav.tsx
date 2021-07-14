@@ -22,7 +22,7 @@ const MainNav = () => {
   const getUserWithToken = (token: string): Promise<string> => {
     return new Promise((res, rej) => {
       axios
-        .post('/login/refresh', { refresh_token: token })
+        .get('/api/user', { headers: { authorization: token } })
         .then(({ data }) => {
           const { display_name, email, id, images } = data.user;
           dispatch(setUser({ user: { display_name, email, id, images } }));
@@ -40,9 +40,13 @@ const MainNav = () => {
     if (loading) {
       const storedToken = window.localStorage.getItem('token');
       if (storedToken) {
-        getUserWithToken(storedToken).catch((err) => {
-          window.localStorage.removeItem('token');
-        });
+        getUserWithToken(storedToken)
+          .then(() => {
+            dispatch(setToken({ token: storedToken }));
+          })
+          .catch((err) => {
+            window.localStorage.removeItem('token');
+          });
       }
       const retrievedToken = search.get('token');
       if (retrievedToken) {

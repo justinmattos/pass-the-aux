@@ -1,4 +1,5 @@
 import React, { useState, useRef, useLayoutEffect } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import { SideNavDiv, SideNavComplement, SideMenuOption } from '../../styles';
 import { useTypedDispatch, useTypedSelector } from '../../hooks';
 import { Toggle } from '../Utils';
@@ -12,10 +13,21 @@ const SideNav = () => {
   }));
   const dispatch = useTypedDispatch();
 
-  // local state
+  // react-router
+  const history = useHistory();
+  const location = useLocation();
+  const { pathname } = location;
+
+  // local state for slideout position
   const [slideoutX, setSlideoutX] = useState(3000);
   const slideout = useRef(null);
+  useLayoutEffect((): void => {
+    if (!slideout.current) return;
+    const width = slideout.current.offsetWidth;
+    if (slideoutX !== width) setSlideoutX(width);
+  });
 
+  // toggleControl function for changing light/dark mode
   const toggleSwitch = (): void => {
     let newStyleOpt;
     if (styleOpt === 'dark') {
@@ -29,11 +41,11 @@ const SideNav = () => {
     window.localStorage.setItem('styleOpt', newStyleOpt);
   };
 
-  useLayoutEffect(() => {
-    if (!slideout.current) return;
-    const width = slideout.current.offsetWidth;
-    if (slideoutX !== width) setSlideoutX(width);
-  });
+  // navigate function for taking users to new pages via nav
+  const navigate = (pathname: string): void => {
+    dispatch(collapse());
+    history.push(pathname);
+  };
 
   return (
     <>
@@ -51,16 +63,18 @@ const SideNav = () => {
         }}
       >
         <div>
-          {Array(5)
-            .fill('')
-            .map((_, idx) => idx + 1)
-            .map((val) => {
-              return (
-                <SideMenuOption key={val} selected={val === 3}>
-                  {val}
-                </SideMenuOption>
-              );
-            })}
+          {[
+            ['/', 'Home'],
+            ['/current', 'Currently Playing'],
+          ].map(([path, pageName], idx) => (
+            <SideMenuOption
+              key={idx}
+              onClick={() => navigate(path)}
+              selected={pathname === path}
+            >
+              {pageName}
+            </SideMenuOption>
+          ))}
         </div>
         <SideMenuOption>
           <div>Toggle Dark Mode</div>

@@ -30,22 +30,23 @@ const TopNav = () => {
     );
   };
 
+  const iconOpts = {
+    color: theme[styleOpt].navText,
+    height: '1rem',
+    width: '1rem',
+  };
+
   return (
     <TopNavDiv>
       <TopMenuOption left width="15rem">
-        <MenuAlt1Icon
-          color={theme[styleOpt].navText}
-          onClick={() => dispatch(expand())}
-          width="1rem"
-          height="1rem"
-        />
+        {expanded ? (
+          <XIcon onClick={() => dispatch(collapse())} {...iconOpts} />
+        ) : (
+          <MenuAlt1Icon onClick={() => dispatch(expand())} {...iconOpts} />
+        )}
       </TopMenuOption>
       <div style={{ textAlign: 'center' }}>Pass the Aux</div>
-      {expanded ? (
-        <TopMenuOption>
-          <XIcon color={theme[styleOpt].navText} width="1rem" height="1rem" />
-        </TopMenuOption>
-      ) : user.id ? (
+      {user.id ? (
         <TopMenuOption onClick={logOut}>Logout</TopMenuOption>
       ) : (
         <TopMenuOption onClick={logIn}>Login</TopMenuOption>
