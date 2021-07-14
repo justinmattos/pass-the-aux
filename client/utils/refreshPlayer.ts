@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { AppDispatch, setPlayer } from '../../store';
-import { Player } from '../../store/slices/player';
+import { AppDispatch, setPlayer } from '../store';
+import { Player } from '../store/slices/player';
 
 const refreshPlayer = ({
   dispatch,
@@ -30,7 +30,6 @@ const refreshPlayer = ({
           progress_ms: fetchedPlayer.progress_ms,
           timestamp: fetchedPlayer.timestamp,
         };
-        console.log(fetchedPlayer);
         dispatch(setPlayer({ player: playerToDispatch }));
         if (fetchedPlayer.is_playing) {
           setTimeout(

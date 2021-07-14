@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useTypedDispatch, useTypedSelector } from '../../hooks';
-import { refreshPlayer } from '../Utils';
+import { changeSong, modifyPlayback, refreshPlayer } from '../../utils';
 import { ControllerDiv } from '../../styles';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/outline';
 import { PlayIcon, PauseIcon } from '@heroicons/react/solid';
@@ -30,13 +30,33 @@ const Controller = () => {
 
   return (
     <ControllerDiv>
-      <ChevronLeftIcon {...iconOpts} />
+      <ChevronLeftIcon
+        {...iconOpts}
+        onClick={() => {
+          changeSong({ dispatch, token, payload: { action: 'previous' } });
+        }}
+      />
       {player.is_playing ? (
-        <PauseIcon {...iconOpts} />
+        <PauseIcon
+          {...iconOpts}
+          onClick={() => {
+            modifyPlayback({ dispatch, token, payload: { action: 'pause' } });
+          }}
+        />
       ) : (
-        <PlayIcon {...iconOpts} />
+        <PlayIcon
+          {...iconOpts}
+          onClick={() => {
+            modifyPlayback({ dispatch, token, payload: { action: 'play' } });
+          }}
+        />
       )}
-      <ChevronRightIcon {...iconOpts} />
+      <ChevronRightIcon
+        {...iconOpts}
+        onClick={() => {
+          changeSong({ dispatch, token, payload: { action: 'next' } });
+        }}
+      />
     </ControllerDiv>
   );
 };

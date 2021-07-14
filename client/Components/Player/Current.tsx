@@ -29,7 +29,7 @@ const Player = () => {
           style={{ padding: '1.5rem 0' }}
         />
       </div>
-      {player && player.is_playing ? (
+      {player && player.item.name ? (
         <div>
           <img
             src={player.item?.album?.images[0].url}
