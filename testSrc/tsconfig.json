@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "outDir": "../test",
+    "removeComments": true,
+  },
+  "files": ["index.spec.ts"],
+  "include": ["testSrc/**/*"]
+}
