@@ -13,11 +13,13 @@ router.get(
     const {
       headers: { authorization: access_token },
     } = req;
+    console.log(access_token);
     axios
       .get('https://api.spotify.com/v1/me/player', {
         headers: { Authorization: 'Bearer ' + access_token },
       })
-      .then(({ data }) => {
+      .then(({ status, data }) => {
+        if (status === 204) res.sendStatus(204);
         res.send({ player: data });
       })
       .catch((error) => {

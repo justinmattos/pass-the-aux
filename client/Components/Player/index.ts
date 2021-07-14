@@ -1,2 +1,3 @@
-import Player from './Player';
-export { Player };
+import Current from './Current';
+import Controller from './Controller';
+export { Current, Controller };

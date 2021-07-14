@@ -28,8 +28,8 @@ export const TopMenuOption = styled(motion.div)<{
 
 export const SideNavDiv = styled(motion.div)`
   position: absolute;
-  top: 0;
-  height: 100vh;
+  top: 3rem;
+  height: calc(100vh - 7rem);
   width: calc(100vw - 3rem);
   display: flex;
   flex-flow: column nowrap;
@@ -38,9 +38,9 @@ export const SideNavDiv = styled(motion.div)`
 
 export const SideNavComplement = styled.div`
   position: absolute;
-  top: 0;
+  top: 3rem;
   right: 0;
-  height: 100vh;
+  height: calc(100vh - 7rem);
   width: 3rem;
   opacity: 0;
 `;

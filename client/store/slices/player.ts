@@ -12,14 +12,14 @@ export interface DisallowsObject {
   transferring_playback?: boolean;
 }
 
-// export interface ContextObject {
-//   external_urls: {
-//     spotify: string;
-//   };
-//   href: string;
-//   type: 'album' | 'playlist' | 'show' | 'artist';
-//   uri: string;
-// }
+export interface ContextObject {
+  external_urls: {
+    spotify: string;
+  };
+  href: string;
+  type: 'album' | 'playlist' | 'show' | 'artist';
+  uri: string;
+}
 
 export interface DeviceObject {
   id: 'string';
@@ -27,10 +27,18 @@ export interface DeviceObject {
   is_private_session: boolean;
   is_restricted: boolean;
   name: string;
+  type: string;
   volume_percent: number;
 }
 
-export interface ArtistObject {}
+export interface ArtistObject {
+  // external_urls: { [key: string]: string };
+  // href: string;
+  // id: 'string';
+  name: string;
+  // type: string;
+  // uri: string;
+}
 
 export interface Image {
   height: number;
@@ -39,16 +47,39 @@ export interface Image {
 }
 
 export interface AlbumObject {
+  // album_type: string;
+  // artists: ArtistObject[];
+  // available_markets: string[];
+  // external_urls: { [key: string]: string };
+  // href: string;
+  // id: 'string';
   images: Image[];
   name: string;
+  // release_date: string;
+  // release_date_precision: string;
+  // total_tracks: number;
+  // type: string;
+  // uri: string;
 }
 
 export interface TrackObject {
   album: AlbumObject;
   artists: ArtistObject[];
+  // available_markets: string[];
+  // disc_number: number;
   duration_ms: number;
+  // explicit: boolean;
+  // external_ids: { [key: string]: string };
+  // external_urls: { [key: string]: string };
+  // href: string;
+  // id: 'string';
+  // is_local: boolean;
   name: string;
-  track_number: number;
+  // popularity: number;
+  // preview_url: string;
+  // track_number: number;
+  // type: string;
+  // uri: string;
 }
 
 export interface EpisodeObject {
@@ -60,78 +91,70 @@ export interface EpisodeObject {
   };
 }
 
-type CurrentlyPlayingType = 'track' | 'episode' | 'ad' | 'unknown';
-
-type ItemMap = {
-  track: TrackObject;
-  episode: EpisodeObject;
-  ad: null;
-  unknown: null;
+type BasePlayerState = {
+  // actions: DisallowsObject;
+  // context: ContextObject;
+  // device: DeviceObject;
+  // repeat_state: string;
+  // shuffle_state: string;
 };
 
-export interface PlayerState<T extends CurrentlyPlayingType> {
-  actions: DisallowsObject;
-  currently_playing_type: T;
-  device: DeviceObject;
+export interface Player {
+  currently_playing_type: 'track';
   is_playing: boolean;
-  item: T extends 'track'
-    ? TrackObject
-    : T extends 'episode'
-    ? EpisodeObject
-    : null;
+  item: TrackObject;
   progress_ms: number;
-  repeat_state: string;
-  shuffle_state: string;
   timestamp: string;
 }
 
-const initialState: PlayerState<CurrentlyPlayingType> = {
-  actions: null,
-  currently_playing_type: 'unknown',
-  device: null,
+export interface PlayerState {
+  value: Player;
+}
+
+const intitialValue: Player = {
+  // actions: null,
+  // context: null,
+  currently_playing_type: null,
+  // device: null,
   is_playing: false,
-  item: null,
+  item: {
+    album: {
+      name: '',
+      images: [],
+    },
+    artists: [
+      {
+        name: '',
+      },
+    ],
+    duration_ms: 0,
+    name: '',
+  },
   progress_ms: 0,
-  repeat_state: null,
-  shuffle_state: null,
+  // repeat_state: null,
+  // shuffle_state: null,
   timestamp: null,
+};
+
+const initialState: PlayerState = {
+  value: intitialValue,
 };
 
 export const playerSlice = createSlice({
   name: 'player',
   initialState,
   reducers: {
-    setPlayerWithTrack: (
+    setPlayer: (
       state,
       action: PayloadAction<{
-        player: PlayerState<'track'>;
+        player: Player;
       }>
     ) => {
-      state = action.payload.player;
-    },
-    setPlayerWithEpisode: (
-      state,
-      action: PayloadAction<{
-        player: PlayerState<'episode'>;
-      }>
-    ) => {
-      state = action.payload.player;
-    },
-    setPlayerWithout: (
-      state: PlayerState<CurrentlyPlayingType>,
-      action: PayloadAction<{
-        player: PlayerState<'ad' | 'unknown'>;
-      }>
-    ) => {
-      state = action.payload.player;
+      state.value = action.payload.player;
     },
   },
 });
 
-export const {
-  setPlayerWithEpisode,
-  setPlayerWithTrack,
-  setPlayerWithout,
-} = playerSlice.actions;
+export const { setPlayer } = playerSlice.actions;
 
 export default playerSlice.reducer;

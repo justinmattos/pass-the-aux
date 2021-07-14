@@ -65,7 +65,7 @@ const SideNav = () => {
         <div>
           {[
             ['/', 'Home'],
-            ['/player', 'Player'],
+            ['/current', 'Currently Playing'],
           ].map(([path, pageName], idx) => (
             <SideMenuOption
               key={idx}

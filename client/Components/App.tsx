@@ -4,7 +4,7 @@ import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
 import { MainNav } from './Navigation';
-import { Player } from './Player';
+import { Current, Controller } from './Player';
 import { setDark, setLight } from '../store';
 import GlobalStyle, { defaultTheme } from '../styles';
 import { useTypedDispatch, useTypedSelector } from '../hooks';
@@ -43,8 +43,9 @@ const App = () => {
       <Router>
         <MainNav />
         <Switch>
-          <Route path="/player" component={Player} />
+          <Route path="/current" component={Current} />
         </Switch>
+        <Controller />
       </Router>
     </ThemeProvider>
   );

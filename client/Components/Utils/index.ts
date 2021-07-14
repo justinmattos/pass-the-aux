@@ -1,3 +1,4 @@
 import Toggle from './Toggle';
+import refreshPlayer from './refreshPlayer';
 
-export { Toggle };
+export { Toggle, refreshPlayer };
