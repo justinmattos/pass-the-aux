@@ -8,15 +8,35 @@ import {
   SideNavComplement,
   SideMenuOption,
 } from './MainNavStyles';
-import { ControllerDiv } from './PlayerStyles';
+import {
+  ControllerDiv,
+  PlayerAlbumImg,
+  PlayerDiv,
+  PlayerHeaderDiv,
+  PlayerHeaderImg,
+} from './PlayerStyles';
+import {
+  LightboxContainer,
+  LightboxContent,
+  NoRoomDiv,
+  RoomsDiv,
+} from './RoomsStyles';
 export {
   ControllerDiv,
   MainNavDiv,
-  TopNavDiv,
-  TopMenuOption,
+  NoRoomDiv,
+  PlayerAlbumImg,
+  PlayerDiv,
+  PlayerHeaderDiv,
+  PlayerHeaderImg,
+  LightboxContainer,
+  LightboxContent,
+  RoomsDiv,
   SideNavDiv,
   SideNavComplement,
   SideMenuOption,
+  TopNavDiv,
+  TopMenuOption,
 };
 
 interface MainTheme {
@@ -75,10 +95,10 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-export const Button = styled(motion.button)<{
+export const Button = styled(motion.div)<{
   readonly primaryButton?: boolean;
 }>`
-  padding: 0.5rem;
+  padding: 0.5rem 1rem;
   background: ${({
     primaryButton,
     theme: {
@@ -92,6 +112,10 @@ export const Button = styled(motion.button)<{
   }) => text}
   border: 0;
   border-radius: 1rem;
+  cursor: pointer;
+`;
+
+export const IconContainer = styled.div`
   cursor: pointer;
 `;
 

@@ -5,6 +5,7 @@ import { ThemeProvider } from 'styled-components';
 
 import { MainNav } from './Navigation';
 import { Current, Controller } from './Player';
+import { Rooms } from './Rooms';
 import { setDark, setLight } from '../store';
 import GlobalStyle, { defaultTheme } from '../styles';
 import { useTypedDispatch, useTypedSelector } from '../hooks';
@@ -44,6 +45,7 @@ const App = () => {
         <MainNav />
         <Switch>
           <Route path="/current" component={Current} />
+          <Route path="/rooms" component={Rooms} />
         </Switch>
         <Controller />
       </Router>

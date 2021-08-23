@@ -1,7 +1,12 @@
 import React from 'react';
 import { useTypedSelector } from '../../hooks';
 
-// For some reason, dispatching to the store is just not working here and I may need to vastly simplify the player object, filtering information at the API router level and only sending the essentials to the client.
+import {
+  PlayerAlbumImg,
+  PlayerDiv,
+  PlayerHeaderDiv,
+  PlayerHeaderImg,
+} from '../../styles';
 
 const Player = () => {
   const { player, styleOpt } = useTypedSelector((state) => ({
@@ -10,31 +15,17 @@ const Player = () => {
   }));
 
   return (
-    <div
-      style={{
-        padding: '0 1rem',
-      }}
-    >
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }}
-      >
+    <PlayerDiv>
+      <PlayerHeaderDiv>
         <h3>Currently playing with</h3>
-        <img
+        <PlayerHeaderImg
           src={`public/spotify/logos/logo-${styleOpt}.png`}
           height="40rem"
-          style={{ padding: '1.5rem 0' }}
         />
-      </div>
+      </PlayerHeaderDiv>
       {player && player.item.name ? (
         <div>
-          <img
-            src={player.item?.album?.images[0].url}
-            style={{ width: 'calc(100%)', paddingBottom: '0.5rem' }}
-          />
+          <PlayerAlbumImg src={player.item?.album?.images[0].url} />
           <h3>{player.item?.name}</h3>
           <div>
             {player.item?.artists.map((artist: any) => artist?.name).join(', ')}
@@ -47,7 +38,7 @@ const Player = () => {
           adequate information about what you are listening to
         </div>
       )}
-    </div>
+    </PlayerDiv>
   );
 };
 
