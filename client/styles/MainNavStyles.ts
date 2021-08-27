@@ -20,10 +20,7 @@ export const TopMenuOption = styled(motion.div)<{
   width?: string;
 }>`
   text-align: ${(props) => (props.left ? 'left' : 'right')};
-  width: ${(props) => (props.width ? props.width : '100%')}
-  :hover {
-    cursor: pointer;
-  }
+  width: ${(props) => (props.width ? props.width : '100%')};
 `;
 
 export const SideNavDiv = styled(motion.div)`

@@ -1,6 +1,11 @@
 import React, { useState, useRef, useLayoutEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { SideNavDiv, SideNavComplement, SideMenuOption } from '../../styles';
+import {
+  SideNavDiv,
+  SideNavComplement,
+  SideMenuOption,
+  IconContainer,
+} from '../../styles';
 import { useTypedDispatch, useTypedSelector } from '../../hooks';
 import { Toggle } from '../Utils';
 import { collapse, setDark, setLight } from '../../store';
@@ -66,14 +71,16 @@ const SideNav = () => {
           {[
             ['/', 'Home'],
             ['/current', 'Currently Playing'],
+            ['/rooms', 'Rooms'],
           ].map(([path, pageName], idx) => (
-            <SideMenuOption
-              key={idx}
-              onClick={() => navigate(path)}
-              selected={pathname === path}
-            >
-              {pageName}
-            </SideMenuOption>
+            <IconContainer key={idx}>
+              <SideMenuOption
+                onClick={() => navigate(path)}
+                selected={pathname === path}
+              >
+                {pageName}
+              </SideMenuOption>
+            </IconContainer>
           ))}
         </div>
         <SideMenuOption>

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useTypedDispatch, useTypedSelector } from '../../hooks';
 import { changeSong, modifyPlayback, refreshPlayer } from '../../utils';
-import { ControllerDiv } from '../../styles';
+import { ControllerDiv, IconContainer } from '../../styles';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/outline';
 import { PlayIcon, PauseIcon } from '@heroicons/react/solid';
 import { useTheme } from 'styled-components';
@@ -30,33 +30,41 @@ const Controller = () => {
 
   return (
     <ControllerDiv>
-      <ChevronLeftIcon
-        {...iconOpts}
-        onClick={() => {
-          changeSong({ dispatch, token, payload: { action: 'previous' } });
-        }}
-      />
+      <IconContainer>
+        <ChevronLeftIcon
+          {...iconOpts}
+          onClick={() => {
+            changeSong({ dispatch, token, payload: { action: 'previous' } });
+          }}
+        />
+      </IconContainer>
       {player.is_playing ? (
-        <PauseIcon
-          {...iconOpts}
-          onClick={() => {
-            modifyPlayback({ dispatch, token, payload: { action: 'pause' } });
-          }}
-        />
+        <IconContainer>
+          <PauseIcon
+            {...iconOpts}
+            onClick={() => {
+              modifyPlayback({ dispatch, token, payload: { action: 'pause' } });
+            }}
+          />
+        </IconContainer>
       ) : (
-        <PlayIcon
+        <IconContainer>
+          <PlayIcon
+            {...iconOpts}
+            onClick={() => {
+              modifyPlayback({ dispatch, token, payload: { action: 'play' } });
+            }}
+          />
+        </IconContainer>
+      )}
+      <IconContainer>
+        <ChevronRightIcon
           {...iconOpts}
           onClick={() => {
-            modifyPlayback({ dispatch, token, payload: { action: 'play' } });
+            changeSong({ dispatch, token, payload: { action: 'next' } });
           }}
         />
-      )}
-      <ChevronRightIcon
-        {...iconOpts}
-        onClick={() => {
-          changeSong({ dispatch, token, payload: { action: 'next' } });
-        }}
-      />
+      </IconContainer>
     </ControllerDiv>
   );
 };

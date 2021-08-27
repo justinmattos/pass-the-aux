@@ -2,7 +2,7 @@ import React from 'react';
 import { MenuAlt1Icon, XIcon } from '@heroicons/react/solid';
 import { useTypedDispatch, useTypedSelector } from '../../hooks';
 import { collapse, expand, setUser } from '../../store';
-import { TopMenuOption, TopNavDiv } from '../../styles';
+import { IconContainer, TopMenuOption, TopNavDiv } from '../../styles';
 import { useTheme } from 'styled-components';
 
 const TopNav = () => {
@@ -39,18 +39,22 @@ const TopNav = () => {
   return (
     <TopNavDiv>
       <TopMenuOption left width="15rem">
-        {expanded ? (
-          <XIcon onClick={() => dispatch(collapse())} {...iconOpts} />
-        ) : (
-          <MenuAlt1Icon onClick={() => dispatch(expand())} {...iconOpts} />
-        )}
+        <IconContainer>
+          {expanded ? (
+            <XIcon onClick={() => dispatch(collapse())} {...iconOpts} />
+          ) : (
+            <MenuAlt1Icon onClick={() => dispatch(expand())} {...iconOpts} />
+          )}
+        </IconContainer>
       </TopMenuOption>
       <div style={{ textAlign: 'center' }}>Pass the Aux</div>
-      {user.id ? (
-        <TopMenuOption onClick={logOut}>Logout</TopMenuOption>
-      ) : (
-        <TopMenuOption onClick={logIn}>Login</TopMenuOption>
-      )}
+      <IconContainer>
+        {user.id ? (
+          <TopMenuOption onClick={logOut}>Logout</TopMenuOption>
+        ) : (
+          <TopMenuOption onClick={logIn}>Login</TopMenuOption>
+        )}
+      </IconContainer>
     </TopNavDiv>
   );
 };
