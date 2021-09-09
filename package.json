@@ -7,6 +7,7 @@
     "build": "npm run build:server && npm run build:client",
     "build:client": "webpack --mode=development",
     "build:server": "tsc -p server/tsconfig.json",
+    "build:test": "tsc -p testSrc/tsconfig.json",
     "start": "node private",
     "start:dev": "nodemon private",
     "test": "jest test",
