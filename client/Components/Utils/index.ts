@@ -1,3 +1,4 @@
+import Lightbox from './Lightbox';
 import Toggle from './Toggle';
 
-export { Toggle };
+export { Lightbox, Toggle };

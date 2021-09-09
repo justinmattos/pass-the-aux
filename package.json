@@ -7,14 +7,12 @@
     "build": "npm run build:server && npm run build:client",
     "build:client": "webpack --mode=development",
     "build:server": "tsc -p server/tsconfig.json",
-    "build:test": "tsc -p testSrc/tsconfig.json",
     "start": "node private",
     "start:dev": "nodemon private",
     "test": "jest test",
     "test:dev": "jest test --watch",
     "watch:client": "npm run build:client -- --watch",
-    "watch:server": "npm run build:server -- --watch",
-    "watch:test": "npm run build:test -- --watch"
+    "watch:server": "npm run build:server -- --watch"
   },
   "keywords": [],
   "author": "Justin Mattos",

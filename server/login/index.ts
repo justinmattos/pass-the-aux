@@ -61,7 +61,7 @@ router.get('/callback', (req: Request, res: Response, next: NextFunction) => {
         .then(({ data: { refresh_token } }) => {
           res.redirect(`/#/?token=${refresh_token}`);
         })
-        .catch((error) => next(errorCreator(error.toString(), 409)));
+        .catch((error) => next(error));
     }
   }
 });
