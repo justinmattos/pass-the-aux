@@ -19,9 +19,9 @@ router.get(
       })
       .then(({ status, data }) => {
         if (status === 204) res.sendStatus(204);
-        res.send({ player: data });
+        else res.send({ player: data });
       })
-      .catch((error) => next(errorCreator(error, 409)));
+      .catch((error) => next(error));
   }
 );
 
@@ -64,7 +64,7 @@ router.put(
         headers: { Authorization: 'Bearer ' + access_token },
       })
       .then(({ status }) => res.sendStatus(status))
-      .catch((error) => next(errorCreator(error, 409)));
+      .catch((error) => next(error));
   }
 );
 
@@ -86,7 +86,7 @@ router.post(
         headers: { Authorization: 'Bearer ' + access_token },
       })
       .then(({ status }) => res.sendStatus(status))
-      .catch((error) => next(errorCreator(error, error.status || 409)));
+      .catch((error) => next(error));
   }
 );
 

@@ -16,20 +16,22 @@ import {
   PlayerHeaderImg,
 } from './PlayerStyles';
 import {
-  LightboxContainer,
+  CreateOrJoinRoomDiv,
+  LightboxShadow,
   LightboxContent,
   NoRoomDiv,
   RoomsDiv,
 } from './RoomsStyles';
 export {
   ControllerDiv,
+  CreateOrJoinRoomDiv,
   MainNavDiv,
   NoRoomDiv,
   PlayerAlbumImg,
   PlayerDiv,
   PlayerHeaderDiv,
   PlayerHeaderImg,
-  LightboxContainer,
+  LightboxShadow,
   LightboxContent,
   RoomsDiv,
   SideNavDiv,
@@ -116,6 +118,7 @@ export const Button = styled(motion.div)<{
 `;
 
 export const IconContainer = styled.div`
+  margin: 0;
   cursor: pointer;
 `;
 

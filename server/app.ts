@@ -27,7 +27,7 @@ app.get('/', (req: Request, res: Response, next: NextFunction) => {
 
 app.use((err, req: Request, res: Response, next: NextFunction) => {
   console.error(err);
-  res.status(err.status || 500).send(err);
+  res.sendStatus(err.status || 500);
 });
 
 export default app;

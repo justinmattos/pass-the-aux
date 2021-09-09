@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { NextFunction, Request, Response } from 'express';
 
-import { buffer, errorCreator } from './';
+import { buffer } from './';
 
 const requireRefreshToken = (
   req: Request,
@@ -25,7 +25,7 @@ const requireRefreshToken = (
     })
     .catch((error) => {
       console.error(error);
-      next(errorCreator(error, 409));
+      next(error);
     });
 };
 

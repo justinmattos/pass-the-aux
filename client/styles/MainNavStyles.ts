@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
-export const MainNavDiv = styled.div`
+export const MainNavDiv = styled(motion.div)`
   > div {
     background: ${({ theme }) => theme[theme.styleOpt].navBack};
     color: ${({ theme }) => theme[theme.styleOpt].navText};
@@ -9,7 +9,7 @@ export const MainNavDiv = styled.div`
   width: 100vw;
 `;
 
-export const TopNavDiv = styled.div`
+export const TopNavDiv = styled(motion.div)`
   display: grid;
   grid-template-columns: calc(100% / 3) calc(100% / 3) calc(100% / 3);
   padding: 1rem;
@@ -33,7 +33,7 @@ export const SideNavDiv = styled(motion.div)`
   justify-content: space-between;
 `;
 
-export const SideNavComplement = styled.div`
+export const SideNavComplement = styled(motion.div)`
   position: absolute;
   top: 3rem;
   right: 0;
